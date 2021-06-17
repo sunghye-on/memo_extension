@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+
+  "name": "NewTabMEmo",
+  "description": "Create new memo at new tab",
+  "version": "1.0",
+
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+
+  "commands": {
+    "_execute_page_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+E",
+        "windows": "Alt+Shift+P",
+        "mac": "Alt+Shift+P"
+      },
+      "global": true
+    }
+  },
+
+  "background": {
+    "service_worker": "background.js"
+  },
+
+  "permissions": ["activeTab", "storage", "scripting"],
+  "chrome_url_overrides": {
+    "newtab": "memo.html"
+  }
+}
