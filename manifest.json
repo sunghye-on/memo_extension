@@ -10,20 +10,16 @@
     "default_icon": "icon.png"
   },
 
-  "commands": {
-    "_execute_page_action": {
-      "suggested_key": {
-        "default": "Ctrl+Shift+E",
-        "windows": "Alt+Shift+P",
-        "mac": "Alt+Shift+P"
-      },
-      "global": true
-    }
-  },
-
   "background": {
     "service_worker": "background.js"
   },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
 
   "permissions": ["activeTab", "storage", "scripting"],
   "chrome_url_overrides": {

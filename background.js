@@ -1,5 +1,5 @@
-chrome.runtime.onInstalled.addListener((_reason) => {
-  chrome.tabs.create({
-    url: "memo.html",
-  });
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.action === "sendMemo") {
+    sendResponse({ farewell: "goodbye" });
+  }
 });
