@@ -14,6 +14,7 @@ const makeNewMemoPopup = () => {
 
   let textArea = createEle("textarea");
   textArea.id = "newMemo";
+  textArea.setAttribute("autofocus", true);
   textArea.style.cssText = "height: 200px; width: 98%";
   //   textArea.rows = 12;
   sectionNode.appendChild(textArea);
