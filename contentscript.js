@@ -34,8 +34,10 @@ const makeNewMemoPopup = () => {
   body.appendChild(sectionNode);
 };
 
-const removeMemoEle = () => {
-  getEleById("memoSection").remove();
+const removeMemoEle = (section) => {
+  if (!section) {
+    getEleById("memoSection").remove();
+  }
 };
 
 const sendSaveEvent = () => {
@@ -57,7 +59,10 @@ const sendSaveEvent = () => {
 window.onload = () => {
   this.addEventListener("keydown", (e) => {
     if (e.altKey && e.shiftKey && e.ctrlKey) {
-      makeNewMemoPopup();
+      let section = getEleById("memoSection");
+      if (!section) {
+        makeNewMemoPopup();
+      }
 
       // 저장 (저장 버튼, 컨트롤 엔터 가능)
       this.addEventListener("keydown", (e) => {
@@ -73,12 +78,12 @@ window.onload = () => {
       // 메모장 작성창 삭제(취소버튼, esc버튼 가능)
       this.addEventListener("keydown", (e) => {
         if (e.key === "Escape") {
-          removeMemoEle();
+          removeMemoEle(section);
         }
       });
 
       getEleById("cancelBtn").addEventListener("click", () => {
-        removeMemoEle();
+        removeMemoEle(section);
       });
     }
   });

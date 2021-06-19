@@ -21,7 +21,7 @@
     }
   ],
 
-  "permissions": ["activeTab", "storage", "scripting"],
+  "permissions": ["activeTab", "storage", "scripting", "unlimitedStorage"],
   "chrome_url_overrides": {
     "newtab": "memo.html"
   }
