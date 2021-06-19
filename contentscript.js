@@ -38,29 +38,45 @@ const removeMemoEle = () => {
   getEleById("memoSection").remove();
 };
 
+const sendSaveEvent = () => {
+  let memeoText = getEleById("newMemo").value;
+
+  chrome.runtime.sendMessage(
+    { action: "sendMemo", memeoText },
+    function (response) {
+      if (response.Success) {
+        removeMemoEle();
+      } else {
+        alert("저장오류!");
+      }
+    }
+  );
+};
+
 // 윈도우 로드시 이벤트 생성
 window.onload = () => {
   this.addEventListener("keydown", (e) => {
     if (e.altKey && e.shiftKey && e.ctrlKey) {
       makeNewMemoPopup();
 
-      // 저장
-      getEleById("saveBtn").addEventListener("click", (e) => {
-        let memeoText = getEleById("newMemo").value;
-
-        chrome.runtime.sendMessage(
-          { action: "sendMemo", memeoText },
-          function (response) {
-            if (response.Success) {
-              removeMemoEle();
-            } else {
-              alert("저장오류!");
-            }
-          }
-        );
+      // 저장 (저장 버튼, 컨트롤 엔터 가능)
+      this.addEventListener("keydown", (e) => {
+        if (e.ctrlKey && e.key === "Enter") {
+          sendSaveEvent();
+        }
       });
 
-      // 메모장 작성창 삭제
+      getEleById("saveBtn").addEventListener("click", () => {
+        sendSaveEvent();
+      });
+
+      // 메모장 작성창 삭제(취소버튼, esc버튼 가능)
+      this.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          removeMemoEle();
+        }
+      });
+
       getEleById("cancelBtn").addEventListener("click", () => {
         removeMemoEle();
       });
