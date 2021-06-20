@@ -1,0 +1,27 @@
+body {
+  margin-top: 70px;
+}
+
+#memoWrap {
+  width: 1000px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#resetMemo {
+  font-size: small;
+  float: right;
+}
+
+#memoContaienr {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(300px, auto));
+  gap: 20px;
+}
+
+.memoText {
+  min-width: 300px;
+  font-size: large;
+  height: fit-content;
+  border: 1px solid black;
+}
