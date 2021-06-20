@@ -14,7 +14,6 @@ const makeNewMemoPopup = () => {
 
   let textArea = createEle("textarea");
   textArea.id = "newMemo";
-  textArea.setAttribute("autofocus", true);
   textArea.style.cssText = "height: 200px; width: 98%";
   //   textArea.rows = 12;
   sectionNode.appendChild(textArea);
@@ -33,6 +32,7 @@ const makeNewMemoPopup = () => {
 
   let body = document.getElementsByTagName("body")[0];
   body.appendChild(sectionNode);
+  getEleById("newMemo").focus();
 };
 
 const removeMemoEle = (section) => {
@@ -44,16 +44,9 @@ const removeMemoEle = (section) => {
 const sendSaveEvent = () => {
   let memeoText = getEleById("newMemo").value;
 
-  chrome.runtime.sendMessage(
-    { action: "sendMemo", memeoText },
-    function (response) {
-      if (response.Success) {
-        removeMemoEle();
-      } else {
-        alert("저장오류!");
-      }
-    }
-  );
+  chrome.runtime.sendMessage({ action: "sendMemo", memeoText }, function () {
+    removeMemoEle();
+  });
 };
 
 // 윈도우 로드시 이벤트 생성
